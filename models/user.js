@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
-    User.associate = function(models) {
+    User.associate = function (models) {
         User.hasMany(models.UserConfig, {
             foreignKey: 'user_id',
             as: 'configs'
@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     // Instance method to check if the provided password is correct
-    User.prototype.validPassword = function(password) {
+    User.prototype.validPassword = function (password) {
         return bcrypt.compareSync(password, this.password);
     };
 
-    User.prototype.config = function() {
+    User.prototype.config = function () {
         return this.getConfigs();
     };
 
