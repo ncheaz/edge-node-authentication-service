@@ -22,4 +22,9 @@ VALUES
     (1, 'kb_table_is_turned_on', 'true', NOW(), NOW()),
     (1, 'kb_available_to_mine_is_turned_on', 'false', NOW(), NOW()),
     (1, 'edge_node_paranet_ual', 'YOUR_PARANET_UAL', NOW(), NOW()),
-    (1, 'edge_node_ssl_active', 'false', NOW(), NOW());
+    (1, 'edge_node_ssl_active', 'false', NOW(), NOW()),
+    (1, 'milvus_address', 'https://your_zilliz_url.com', NOW(), NOW()),
+    (1, 'milvus_token', 'db_admin:your_pw', NOW(), NOW()),
+    (1, 'vector_collection', 'ExampleCollection', NOW(), NOW()),
+    (1, 'vectorize_pipeline', 'vectorize_ka', NOW(), NOW()),
+    (1, 'blockchain', 'base:84532', NOW(), NOW());
