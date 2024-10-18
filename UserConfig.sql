@@ -27,4 +27,8 @@ VALUES
     (1, 'milvus_token', 'db_admin:your_pw', NOW(), NOW()),
     (1, 'vector_collection', 'ExampleCollection', NOW(), NOW()),
     (1, 'vectorize_pipeline', 'vectorize_ka', NOW(), NOW()),
-    (1, 'blockchain', 'base:84532', NOW(), NOW());
+    (1, 'blockchain', 'base:84532', NOW(), NOW()),
+     (1, 'embedding_model_api_key', 'hf_yourkey', NOW(), NOW()),
+    (1, 'embedding_model', 'guidecare/all-mpnet-base-v2-feature-extraction', NOW(), NOW()),
+    (1, 'cohere_key', 'cohere_yourkey', NOW(), NOW());
+    (1, 'vectorization_enabled', 'false', NOW(), NOW());
