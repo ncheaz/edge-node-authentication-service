@@ -22,4 +22,5 @@ VALUES
     (1, 'kb_table_is_turned_on', 'true', NOW(), NOW()),
     (1, 'kb_available_to_mine_is_turned_on', 'false', NOW(), NOW()),
     (1, 'edge_node_paranet_ual', 'YOUR_PARANET_UAL', NOW(), NOW()),
-    (1, 'edge_node_ssl_active', 'false', NOW(), NOW());
+    (1, 'edge_node_ssl_active', 'false', NOW(), NOW()),
+    (1, 'all_nodes_names', 'Edge node', NOW(), NOW());
