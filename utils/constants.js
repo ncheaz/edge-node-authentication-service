@@ -12,7 +12,8 @@ const PUBLIC_PROPERTIES = [
     'kb_graph_is_turned_on',
     'kb_table_is_turned_on',
     'kb_available_to_mine_is_turned_on',
-    'edge_node_paranet_ual'
+    'edge_node_paranet_ual',
+    'edge_node_publish_mode',
 ];
 
 module.exports = {
