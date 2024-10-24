@@ -163,6 +163,17 @@ app.get('/auth/wallets', async (req, res, next) => {
     return res.json({ authenticated: false, user: null });
 });
 
+app.get('/auth/params/public', async (req, res, next) => {
+    const config = await UserConfig.findAll({
+        where: {
+            option: {
+                [Op.in]: PUBLIC_PROPERTIES
+            }
+        }
+    });
+    return res.json({ config });
+});
+
 app.post('/login', (req, res, next) => {
     try {
         const { username, password } = req.body;
