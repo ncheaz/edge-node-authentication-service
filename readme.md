@@ -2,7 +2,7 @@
 
 1. create database **'edge-node-auth-service'**
 2. cp .env.example .env
-3. generate random strings for following .env variables: **JWT_SECRET** and **SECRET** (you can use openssl rand -hex 64 for example)
+3. generate random strings for following .env variables: **JWT_SECRET** and **SECRET** (you can use openssl rand -hex 64 for example) + Add MySQL password to **DB_PASSWORD** variable if necessary
 4. **npm install**
 5. npx sequelize-cli **db:migrate**
 6. npx sequelize-cli **db:seed:all** (this will generate demo user)
