@@ -6,7 +6,7 @@ VALUES
     (1, 'publish_service_endpoint', 'internal', NOW(), NOW()),
     (1, 'edit_is_turned_on', 'false', NOW(), NOW()),
     (1, 'preview_is_turned_on', 'false', NOW(), NOW()),
-    (1, 'run_time_node_endpoint', 'http://localhost', NOW(), NOW()),
+    (1, 'run_time_node_endpoint', 'https://v8-testnet-08.origin-trail.network:8900/info', NOW(), NOW()),
     (1, 'run_time_node_port', '8900', NOW(), NOW()),
     (1, 'edge_node_environment', 'development', NOW(), NOW()),
     (1, 'kmining_json_pipeline_id', 'simple_json_to_jsonld', NOW(), NOW()),

@@ -6,10 +6,11 @@
 4. **npm install**
 5. npx sequelize-cli **db:migrate**
 6. npx sequelize-cli **db:seed:all** (this will generate demo user)
-7. Execute **this MYSQL query ([UserConfig.sql](UserConfig.sql))** to define Edge node config parameters, updated with real values
+7. Update **this MYSQL query ([UserConfig.sql](UserConfig.sql))** with real values of:
    1. your **v8 DKG Core node endpoint (run_time_node_endpoint) and port (run_time_node_port)**
    2. your **Paranet UAL (edge_node_paranet_ual)** (you can do it later, but the Edge node will not work without it. Paranet should be created before, in Preparation steps)
-8. add your wallet to the "user_wallets" table - column "blockchain" is actual blockchain id (e.g. base:84532)
+8. Execute **([UserConfig.sql](UserConfig.sql))** to define Edge node config parameters
+9. add your wallet to the "user_wallets" table - column "blockchain" is actual blockchain id (e.g. base:84532)
 - npm run start
 
 Seeder will create example user with following credentials:
