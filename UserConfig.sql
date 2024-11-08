@@ -34,3 +34,5 @@ VALUES
     (1, 'cohere_key', 'cohere_yourkey', NOW(), NOW()),
     (1, 'vectorization_enabled', 'false', NOW(), NOW()),
     (1, 'edge_node_publish_mode', 'public', NOW(), NOW());
+    (1, 'unstructured_api_url', 'https://your_unstructured_api_url', NOW(), NOW());
+    (1, 'unstructured_api_key', 'your_unstructured_api_key_if_exists', NOW(), NOW());
