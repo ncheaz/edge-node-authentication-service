@@ -264,7 +264,11 @@ app.post('/login', (req, res, next) => {
                     const { password, ...safeUser } = user.dataValues;
                     safeUser.config = await user.config();
 
-                    res.json({ message: 'Login successful', user: safeUser });
+                    res.json({
+                        message: 'Login successful',
+                        token,
+                        user: safeUser
+                    });
                 });
             })
             .catch((err) => {
