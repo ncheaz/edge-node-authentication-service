@@ -8,7 +8,7 @@ VALUES
     (1, 'preview_is_turned_on', 'false', NOW(), NOW()),
     (1, 'run_time_node_endpoint', 'http://localhost', NOW(), NOW()),
     (1, 'run_time_node_port', '8900', NOW(), NOW()),
-    (1, 'edge_node_environment', 'development', NOW(), NOW()),
+    (1, 'edge_node_environment', 'testnet', NOW(), NOW()),
     (1, 'kmining_json_pipeline_id', 'simple_json_to_jsonld', NOW(), NOW()),
     (1, 'kmining_pdf_pipeline_id', 'pdf_to_jsonld', NOW(), NOW()),
     (1, 'edge_node_domain', 'http://localhost:5173', NOW(), NOW()),
