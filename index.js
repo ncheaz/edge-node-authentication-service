@@ -10,7 +10,6 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
-const { PUBLIC_PROPERTIES } = require('./utils/constants');
 const { Op } = require('sequelize');
 
 // List of allowed origins
@@ -106,7 +105,7 @@ function isBooleanString(str) {
     }
 }
 
-app.get('/auth/check', async (req, res, next) => {
+app.get('/check', async (req, res, next) => {
     let isAuthEnabled;
     const authEnabledConfig = await UserConfig.findOne({
         where: {
@@ -146,7 +145,7 @@ app.get('/auth/check', async (req, res, next) => {
     // })(req, res, next);
 });
 
-app.get('/auth/wallets', async (req, res, next) => {
+app.get('/wallets', async (req, res, next) => {
     if (req.isAuthenticated()) {
         const user = await User.findOne({
             where: { username: req.user.username }
@@ -161,17 +160,6 @@ app.get('/auth/wallets', async (req, res, next) => {
         return res.json({ authenticated: true, user: safeUser, wallets });
     }
     return res.json({ authenticated: false, user: null });
-});
-
-app.get('/auth/params/public', async (req, res, next) => {
-    const config = await UserConfig.findAll({
-        where: {
-            option: {
-                [Op.in]: PUBLIC_PROPERTIES
-            }
-        }
-    });
-    return res.json({ config });
 });
 
 app.post('/login', (req, res, next) => {
