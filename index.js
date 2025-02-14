@@ -95,7 +95,7 @@ passport.use(
     })
 );
 
-app.get('/auth/check', async (req, res, next) => {
+app.get('/check', async (req, res, next) => {
     const authEnabledConfig = await UserConfig.findOne({
         where: {
             option: 'auth_enabled'
@@ -149,7 +149,7 @@ app.get('/auth/check', async (req, res, next) => {
     }
 });
 
-app.get('/auth/wallets', async (req, res, next) => {
+app.get('/wallets', async (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
     if (authHeader && authHeader.startsWith('Bearer ')) {
