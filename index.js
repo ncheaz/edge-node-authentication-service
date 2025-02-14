@@ -10,7 +10,6 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
-const { PUBLIC_PROPERTIES } = require('./utils/constants');
 const { Op } = require('sequelize');
 
 // List of allowed origins
@@ -222,17 +221,6 @@ app.get('/auth/wallets', async (req, res, next) => {
         }
         return res.status(401).json({ authenticated: false, user: null });
     }
-});
-
-app.get('/auth/params/public', async (req, res, next) => {
-    const config = await UserConfig.findAll({
-        where: {
-            option: {
-                [Op.in]: PUBLIC_PROPERTIES
-            }
-        }
-    });
-    return res.json({ config });
 });
 
 app.post('/login', (req, res, next) => {
