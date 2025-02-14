@@ -102,7 +102,7 @@ app.get('/check', async (req, res, next) => {
         }
     });
     const isAuthEnabled =
-        authEnabledConfig && authEnabledConfig.value.toLowerCase() === 'true';
+        !authEnabledConfig || authEnabledConfig.value.toLowerCase() === 'true';
 
     if (!isAuthEnabled) {
         let user = {};
