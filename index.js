@@ -1,5 +1,8 @@
 // Load environment variables from .env file
 require('dotenv').config();
+if (process.env.OTEL_ENABLED?.toLowerCase() === 'true') {
+    require('@opentelemetry/auto-instrumentations-node/register');
+}
 
 const cors = require('cors');
 const express = require('express');
