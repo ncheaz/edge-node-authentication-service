@@ -1,5 +1,8 @@
 // Load environment variables from .env file
 require('dotenv').config();
+if (process.env.OTEL_ENABLED?.toLowerCase() === 'true') {
+    require('@opentelemetry/auto-instrumentations-node/register');
+}
 
 const cors = require('cors');
 const express = require('express');
@@ -96,7 +99,9 @@ passport.use(
     })
 );
 
-app.get('/check', async (req, res, next) => {
+const router = express.Router();
+
+router.get('/check', async (req, res, next) => {
     const authEnabledConfig = await UserConfig.findOne({
         where: {
             option: 'auth_enabled'
@@ -150,7 +155,7 @@ app.get('/check', async (req, res, next) => {
     }
 });
 
-app.get('/wallets', async (req, res, next) => {
+router.get('/wallets', async (req, res, next) => {
     const authHeader = req.headers['authorization'];
 
     if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -224,7 +229,7 @@ app.get('/wallets', async (req, res, next) => {
     }
 });
 
-app.post('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => {
     try {
         const { username, password } = req.body;
         if (!username || !password) {
@@ -269,7 +274,7 @@ app.post('/login', (req, res, next) => {
     }
 });
 
-app.post('/logout', (req, res, next) => {
+router.post('/logout', (req, res, next) => {
     req.logout((err) => {
         if (err) {
             return next(err);
@@ -302,6 +307,7 @@ app.get('/params/public', async (req, res) => {
             .json({ error: 'Failed to fetch public parameters' });
     }
 });
+app.use(process.env.ROUTES_PREFIX || '/', router);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
