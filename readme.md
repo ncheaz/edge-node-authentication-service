@@ -54,3 +54,12 @@ Authentication flow explained **(Edge node interface already have this integrate
 2. GET /auth/check - this route will return user and his config if the cookie from previous request is correct
 
 Test can be done in Postman, no need to manually include cookie in next requests, it will be automatically applied.
+
+## OpenTelemetry
+
+This service comes with OpenTelemetry support pre-installed. To enable it, set `OTEL_ENABLED=true` in .env variables.
+
+OpenTelemetry is implemented using [@opentelemetry/auto-instrumentations-node](https://www.npmjs.com/package/@opentelemetry/auto-instrumentations-node) package, and can be further configured using env variables.
+- Configuration: https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/
+- Set up exporters: https://opentelemetry.io/docs/specs/otel/protocol/exporter/
+- Exporters + dashboard docker setup: https://hub.docker.com/r/grafana/otel-lgtm 
