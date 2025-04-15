@@ -11,6 +11,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
+const { PUBLIC_PROPERTIES } = require('./utils/constants');
 
 // List of allowed origins
 const allowedOrigins = [
@@ -281,6 +282,25 @@ app.post('/logout', (req, res, next) => {
             res.json({ message: 'Logout successful' });
         });
     });
+});
+
+app.get('/params/public', async (req, res) => {
+    try {
+        const config = await UserConfig.findAll({
+            where: {
+                option: {
+                    [Op.in]: PUBLIC_PROPERTIES
+                }
+            }
+        });
+
+        return res.json({ config });
+    } catch (error) {
+        console.error('Error fetching public params:', error);
+        return res
+            .status(500)
+            .json({ error: 'Failed to fetch public parameters' });
+    }
 });
 
 // Start the server
