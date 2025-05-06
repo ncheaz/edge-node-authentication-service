@@ -18,11 +18,17 @@ const { PUBLIC_PROPERTIES } = require('./utils/constants');
 
 // List of allowed origins
 const allowedOrigins = [
+    '*',
     'http://localhost:8100',
     'http://localhost:3002',
     'http://localhost:5173',
     process.env.UI_ENDPOINT
 ];
+
+const corsOptionsAll = {
+    origin: true, // Allow all origins
+    credentials: true // Allow credentials (cookies, authorization headers, etc.)
+};
 
 // CORS configuration function
 const corsOptions = {
@@ -30,7 +36,8 @@ const corsOptions = {
         if (allowedOrigins.includes(origin) || !origin) {
             callback(null, true);
         } else {
-            callback(new Error('Not allowed by CORS'));
+            callback(null, true);
+            //callback(new Error('Not allowed by CORS'));
         }
     },
     credentials: true // Allow credentials (cookies, authorization headers, etc.)
@@ -38,7 +45,8 @@ const corsOptions = {
 
 // Initialize Express app
 const app = express();
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(cors(corsOptionsAll));
 
 // Set up body parsing middleware
 app.use(express.json());
@@ -108,7 +116,8 @@ router.get('/check', async (req, res, next) => {
         }
     });
     const isAuthEnabled =
-        !authEnabledConfig || authEnabledConfig.value.toLowerCase() === 'true';
+        //!authEnabledConfig || authEnabledConfig.value.toLowerCase() === 'true';
+        true;
 
     if (!isAuthEnabled) {
         let user = {};
@@ -123,11 +132,14 @@ router.get('/check', async (req, res, next) => {
     }
 
     const authHeader = req.headers['authorization'];
+    console.log(`authHeader = ${authHeader}`);
     if (authHeader && authHeader.startsWith('Bearer ')) {
+	console.log(`'authHeader.startsWith('Bearer ') = ${authHeader.startsWith('Bearer ')}`);
         passport.authenticate(
             'jwt',
             { session: false },
             async (err, user, info) => {
+		console.log(`err in passport = ${err}`);
                 if (err) return next(err);
                 if (!user) {
                     return res
@@ -143,6 +155,8 @@ router.get('/check', async (req, res, next) => {
             }
         )(req, res, next);
     } else {
+	console.log(`req.isAuthenticated() = ${req.isAuthenticated()}`);
+	//return res.json({ authenticated: true, user: 'my_edge_node' });
         if (req.isAuthenticated()) {
             const user = await User.findOne({
                 where: { username: req.user.username }
@@ -237,16 +251,22 @@ router.post('/login', (req, res, next) => {
                 .status(400)
                 .json({ message: 'Username and password are required' });
         }
+	console.log(`Username = ${username}, password = ${password}`);
 
         User.findOne({ where: { username } })
             .then((user) => {
+		console.log(`findOne()`);
                 if (!user || !user.validPassword(password)) {
+		    console.log(`!use = ${!user}`);
+		    console.log(`!user.validPassword(password) = ${!user.validPassword(password)}`);
                     return res
                         .status(401)
                         .json({ message: 'Invalid credentials' });
                 }
+		console.log(`req.login()`);
                 req.login(user, async (err) => {
                     if (err) {
+			console.log(`err = ${err}`);
                         return next(err);
                     }
                     const token = jwt.sign(
@@ -256,7 +276,10 @@ router.post('/login', (req, res, next) => {
                     );
 
                     const { password, ...safeUser } = user.dataValues;
+		    console.log(`safeUser.config()`);
                     safeUser.config = await user.config();
+		    console.log(`safeUser.config = ${safeUser.config}`);
+		    console.log(`safeUser = ${JSON.stringify(safeUser)}`);
 
                     res.json({
                         message: 'Login successful',
